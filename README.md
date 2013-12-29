@@ -142,7 +142,8 @@ The Object which has parameters is passed to this Function. See [Parameters](#pa
   alias: {
     match: /\.min\.(?:js|css)$/,
     serve: function(params) {
-      return params.absDir + '/' + params.basename.replace(/\.min$/, '.') + params.suffix;
+      return params.absDir + '/' +
+        params.basename.replace(/\.min$/, '.') + params.suffix;
     }
   }
 ```
