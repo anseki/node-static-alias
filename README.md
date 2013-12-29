@@ -98,7 +98,7 @@ The RegExp which test the requested path.
 ```
 
 + **Function:**  
-The Function which returns `true` or not.
+The Function which returns `true` or `false`.
 The Object which has parameters is passed to this Function. See [Parameters](#parameters).
 
 ```js
