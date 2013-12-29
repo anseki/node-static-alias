@@ -186,24 +186,24 @@ If `true` is specified, serving the outside files of document-root is allowed. D
 The string `parameter=value` can be specified to `match`. And, the Object which has parameters is passed to Function which specified to `match` and `serve`.  
 These parameters are below.
 
-+ **`reqPath`**  
++ `reqPath`  
 The path which is requested by user. e.g. `/path/to/file.ext`  
 This may be directory. e.g. `/`
-+ **`reqDir`**  
++ `reqDir`  
 The path to directory which is part of `reqPath`. e.g. `/path/to`  
-+ **`absPath`**  
++ `absPath`  
 The absolute path to requested file. e.g. `/var/www/public/path/to/file.ext`  
-+ **`absDir`**  
++ `absDir`  
 The absolute path to directory which is part of `absPath`. e.g. `/var/www/public/path/to`  
-+ **`fileName`**  
++ `fileName`  
 The file name of requested file. e.g. `file.ext`  
 This may be directory name e.g. `to`  
 If document-root is requested, this is empty string.
-+ **`basename`**  
++ `basename`  
 The part of file name except file-suffix. (`.` isn't included) e.g. `file`
-+ **`suffix`**  
++ `suffix`  
 The part of file name which is extracted file-suffix. (`.` isn't included) e.g. `ext`
-+ **Request Headers**  
++ Request Headers  
 The HTTP Request Headers from client. These are lower-cased. e.g. `referer`, `user-agent`, etc.
 
 ## Logging
