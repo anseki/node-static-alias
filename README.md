@@ -209,7 +209,7 @@ The HTTP Request Headers from client. These are lower-cased. e.g. `referer`, `us
 
 ## Logging
 
-The `logger` included in constructor options is a Logger instance of standard Logging Library (e.g. log4js) which has `info` method or `log` method.
+The `logger` included in constructor options is a Logger instance of standard Logging Library (e.g. [log4js](https://github.com/nomiddlename/log4js-node)) which has `info` method or `log` method.
 
 ```js
 var log4js = require('log4js');
