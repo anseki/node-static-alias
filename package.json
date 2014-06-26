@@ -28,6 +28,8 @@
   },
   "keywords": [
     "http",
+    "httpd",
+    "test",
     "static",
     "file",
     "server",
