@@ -1,31 +1,8 @@
 {
   "name": "node-static-alias",
+  "version": "0.1.2",
+  "title": "node-static-alias",
   "description": "Serve static file which is not requested file. (e.g. `file.min.js` is requested, serve `file.js`)",
-  "version": "0.1.1",
-  "homepage": "https://github.com/anseki/node-static-alias",
-  "author": {
-    "name": "anseki"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/anseki/node-static-alias.git"
-  },
-  "bugs": {
-    "url": "https://github.com/anseki/node-static-alias/issues"
-  },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/anseki/node-static-alias/blob/master/LICENSE-MIT"
-    }
-  ],
-  "main": "./lib/node-static-alias.js",
-  "engines": {
-    "node": ">= 0.8.0"
-  },
-  "dependencies": {
-    "node-static": "~0.7.2"
-  },
   "keywords": [
     "http",
     "httpd",
@@ -38,5 +15,23 @@
     "directoryindex",
     "min",
     "log"
-  ]
+  ],
+  "main": "./lib/node-static-alias.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "dependencies": {
+    "node-static": "~0.7.2"
+  },
+  "homepage": "https://github.com/anseki/node-static-alias",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/anseki/node-static-alias.git"
+  },
+  "bugs": "https://github.com/anseki/node-static-alias/issues",
+  "licenses": "MIT",
+  "author": {
+    "name": "anseki",
+    "url": "https://github.com/anseki"
+  }
 }
