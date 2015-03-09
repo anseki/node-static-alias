@@ -61,7 +61,7 @@ Or
 
 The Alias-Rule Object can have following properties.
 
-### `match`
+### match
 
 **Type:** String, RegExp, Function or Array
 
@@ -112,7 +112,7 @@ The Object which has parameters is passed to this Function. See [Parameters](#pa
   }
 ```
 
-### `serve`
+### serve
 
 **Type:** String, Function or Array
 
@@ -160,14 +160,14 @@ The Object which has parameters is passed to this Function. See [Parameters](#pa
   }
 ```
 
-### <a name ="force">`force`</a>
+### force
 
 **Type:** Boolean
 
 If `true` is specified, first file in `serve` is chosen to try serving without checking it's existing or not. And if it doesn't exist, a 404 error occur. Default is `false`.  
 This is used to prevent another file from being chosen unintentionally.
 
-### `allowOutside`
+### allowOutside
 
 If `true` is specified, serving the outside files of document-root is allowed. Default is `false`.  
 
@@ -182,7 +182,7 @@ If `true` is specified, serving the outside files of document-root is allowed. D
 
 *NOTE:* If you specify `true` in public server, you should specify absolute path to `serve`. Otherwise the user may access to the file that must be hidden from them.
 
-## <a name ="parameters">Parameters</a>
+## Parameters
 
 The string `parameter=value` can be specified to `match`. And, the Object which has parameters is passed to Function which specified to `match` and `serve`.  
 These parameters are below.
