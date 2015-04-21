@@ -1,12 +1,12 @@
 # node-static-alias
 
 Serve static file which is not requested file. (e.g. `file.min.js` is requested, serve `file.js`)  
-node-static-alias wraps (inherits) the useful module [node-static](https://github.com/cloudhead/node-static/), and this add `alias` option to it.  
-The working is like [Alias](http://httpd.apache.org/docs/2.4/mod/mod_alias.html) mapping or [mod_rewrite
-](http://httpd.apache.org/docs/2.4/mod/mod_rewrite.html) of Apache. It is like [DirectoryIndex](http://httpd.apache.org/docs/2.4/mod/mod_dir.html#directoryindex) too. And this can check the file exists or not.
+node-static-alias wraps (inherits) the useful module [node-static](https://github.com/cloudhead/node-static/), and this adds the [`alias`](#alias) option to that.  
+This works like the [Alias](http://httpd.apache.org/docs/2.4/mod/mod_alias.html) mapping or the [mod_rewrite
+](http://httpd.apache.org/docs/2.4/mod/mod_rewrite.html) of Apache. It looks like [DirectoryIndex](http://httpd.apache.org/docs/2.4/mod/mod_dir.html#directoryindex) too. And this can check the file exists or not.
 
-+ Serve `file.js` instead of `file.min.js` which is not made yet, in test phase.
-+ Serve the outside files of document-root which are shared by multiple web site in one machine.
++ Serve `file.js` instead of `file.min.js` which is not made yet, in the test phase.
++ Serve the outside files of the document-root which are shared by multiple web sites in one machine.
 + Serve the default page which is not `index.html` when *`/` is requested.
 
 ## Synopsis
@@ -31,10 +31,11 @@ require('http').createServer(function(request, response) {
 
 ## Usage
 
-node-static-alias add `alias` option to node-static via `require('node-static-alias')` instead of `require('node-static')`. See [node-static](https://github.com/cloudhead/node-static/) to use it.
+The [`alias`](#alias) option is added to the node-static via using `require('node-static-alias')` instead of `require('node-static')`. See [node-static](https://github.com/cloudhead/node-static/) to use it.
 
-### alias
-The `alias` included in constructor options is a Alias-Rule Object, or an array which includes multiple Alias-Rule Objects.
+### `alias`
+
+The `alias` included in the constructor options is an Alias-Rule Object, or an array which includes multiple Alias-Rule Objects.
 
 ```js
   alias: {
@@ -61,16 +62,17 @@ Or
 
 The Alias-Rule Object can have following properties.
 
-### match
+### `match`
 
-**Type:** String, RegExp, Function or Array
+**Type:** string, RegExp, function or Array
 
-Specify one of below or Array which includes multiple things of those.  
-If one or more things match, `serve` is parsed. If anything doesn't match, it go to next Alias-Rule. If all Alias-Rules don't match, serving the requested file is tried.
+Specify one of below or an Array which includes multiple things of those.  
+If one or more things match, the [`serve`](#serve) is parsed. If anything doesn't match, it goes to next an Alias-Rule. If all Alias-Rules don't match, it tries to serve the requested file.
 
-+ **String:**  
++ **string:**
+
 If the requested path is equal to this string, it's matched.  
-Or, this can be `parameter=value` format (e.g. `suffix=png`). See [Parameters](#parameters). If the `value` is equal to specified parameter, it's matched.
+Or, this can be `parameter=value` format (e.g. `suffix=png`). See [Parameters](#parameters). If the `value` is equal to the specified parameter, it's matched.
 
 ```js
   alias: [
@@ -86,8 +88,9 @@ Or, this can be `parameter=value` format (e.g. `suffix=png`). See [Parameters](#
   ]
 ```
 
-+ **RegExp:**  
-The RegExp which test the requested path.
++ **RegExp:**
+
+The RegExp which tests the requested path.
 
 ```js
   // These image files are not made yet.
@@ -97,9 +100,10 @@ The RegExp which test the requested path.
   }
 ```
 
-+ **Function:**  
-The Function which returns `true` or `false`.
-The Object which has parameters is passed to this Function. See [Parameters](#parameters).
++ **function:**
+
+The function which returns `true` or `false`.
+The Object which has parameters is passed to this function. See [Parameters](#parameters).
 
 ```js
   // Kick direct access from outside web site.
@@ -112,15 +116,16 @@ The Object which has parameters is passed to this Function. See [Parameters](#pa
   }
 ```
 
-### serve
+### `serve`
 
-**Type:** String, Function or Array
+**Type:** string, function or Array
 
-Specify one of below or Array which includes multiple things of those.  
-By default, the first file which exist is chosen to try serving. See [force](#force). If anything doesn't exist, it go to next Alias-Rule. If all files of Alias-Rules don't exist, serving the requested file is tried.
+Specify one of below or an Array which includes multiple things of those.  
+By default, the first file which exists is chosen to try to serve. See [force](#force). If anything doesn't exist, it goes to next an Alias-Rule. If all files of Alias-Rules don't exist, it tries to serve the requested file.
 
-+ **String:**  
-The absolute path or relative path from document-root of file to serve.  
++ **string:**
+
+The absolute path or relative path from the document-root of the file to serve.  
 This can include parameters like `<% parameter %>`. See [Parameters](#parameters).
 
 ```js
@@ -131,11 +136,12 @@ This can include parameters like `<% parameter %>`. See [Parameters](#parameters
   }
 ```
 
-*NOTE:* If the first character of this string is `/` (it may be parameter), this string is absolute path. This `/` doesn't point document-root. It's root of the local filesystem. If you want relative path from document-root, don't specify leading `/`, or add `.` to left of leading `/`.
+*NOTE:* If the first character of this string is `/` (it might be parameter), this string is absolute path. This `/` doesn't point the document-root. It is the root of the local filesystem. If you want the relative path from the document-root, don't specify leading `/`, or add `.` to left of leading `/`.
 
-+ **Function:**  
-The Function which returns the absolute path or relative path from document-root of file to serve.  
-The Object which has parameters is passed to this Function. See [Parameters](#parameters).
++ **function:**
+
+The function which returns the absolute path or relative path from the document-root of the file to serve.  
+The Object which has parameters is passed to this function. See [Parameters](#parameters).
 
 ```js
   // Minified files are not made yet.
@@ -160,16 +166,16 @@ The Object which has parameters is passed to this Function. See [Parameters](#pa
   }
 ```
 
-### force
+### `force`
 
-**Type:** Boolean
+**Type:** boolean
 
-If `true` is specified, first file in `serve` is chosen to try serving without checking it's existing or not. And if it doesn't exist, a 404 error occur. Default is `false`.  
+If `true` is specified, the first file in the [`serve`](#serve) is chosen to try to serve without checking it's existing or not. And if it doesn't exist, a 404 error occurs. Default is `false`.  
 This is used to prevent another file from being chosen unintentionally.
 
-### allowOutside
+### `allowOutside`
 
-If `true` is specified, serving the outside files of document-root is allowed. Default is `false`.  
+If `true` is specified, serving the outside files of the document-root is allowed. Default is `false`.
 
 ```js
   // Shared files.
@@ -180,36 +186,36 @@ If `true` is specified, serving the outside files of document-root is allowed. D
   }
 ```
 
-*NOTE:* If you specify `true` in public server, you should specify absolute path to `serve`. Otherwise the user may access to the file that must be hidden from them.
+*NOTE:* If you specify `true` in the public server, you should specify the absolute path to the [`serve`](#serve). Otherwise the user might access to the file that must be hidden from them.
 
 ## Parameters
 
-The string `parameter=value` can be specified to `match`. And, the Object which has parameters is passed to Function which specified to `match` and `serve`.  
+The string `parameter=value` can be specified to the [`match`](#match). And the Object which has parameters is passed to function which specified to the [`match`](#match) and the [`serve`](#serve).  
 These parameters are below.
 
 + `reqPath`  
-The path which is requested by user. e.g. `/path/to/file.ext`  
-This may be directory. e.g. `/`
+The path which is requested by the user. e.g. `/path/to/file.ext`  
+This might be a directory. e.g. `/`
 + `reqDir`  
-The path to directory which is part of `reqPath`. e.g. `/path/to`  
+The path to a directory which is part of `reqPath`. e.g. `/path/to`  
 + `absPath`  
-The absolute path to requested file. e.g. `/var/www/public/path/to/file.ext`  
+The absolute path to a requested file. e.g. `/var/www/public/path/to/file.ext`  
 + `absDir`  
-The absolute path to directory which is part of `absPath`. e.g. `/var/www/public/path/to`  
+The absolute path to a directory which is part of `absPath`. e.g. `/var/www/public/path/to`  
 + `fileName`  
-The file name of requested file. e.g. `file.ext`  
-This may be directory name e.g. `to`  
-If document-root is requested, this is empty string.
+The file name of a requested file. e.g. `file.ext`  
+This might be a directory name e.g. `to`  
+If the document-root is requested, this is empty string.
 + `basename`  
-The part of file name except file-suffix. (`.` isn't included) e.g. `file`
+The part of the file name except file-suffix. (`.` isn't included) e.g. `file`
 + `suffix`  
-The part of file name which is extracted file-suffix. (`.` isn't included) e.g. `ext`
+The part of the file name which is extracted file-suffix. (`.` isn't included) e.g. `ext`
 + Request Headers  
-The HTTP Request Headers from client. These are lower-cased. e.g. `referer`, `user-agent`, etc.
+The HTTP Request Headers from the client. These are lower-cased. e.g. `referer`, `user-agent`, etc.
 
 ## Logging
 
-The `logger` included in constructor options is a Logger instance of standard Logging Library (e.g. [log4js](https://github.com/nomiddlename/log4js-node)) which has `info` method or `log` method.
+The `logger` included in constructor options is a Logger instance of the standard Logging Library (e.g. [log4js](https://github.com/nomiddlename/log4js-node)) which has `info` method or `log` method.
 
 ```js
 var log4js = require('log4js');
@@ -222,7 +228,7 @@ var fileServer = new staticAlias.Server('./public' {
 });
 ```
 
-You can specify simple Object which has `info` method or `log` method (e.g. `console` or `util`).  
+You can specify a simple Object which has `info` method or `log` method (e.g. `console` or `util`).  
 Most easy:
 
 ```js
@@ -247,7 +253,7 @@ var fileServer = new staticAlias.Server('./public' {
 
 Log message example:
 
-```shell
+```console
 (/) Requested: "/var/public"
 (/file.min.css) Requested: "/var/public/file.min.css"
 (/file.min.css) For Serve: "/var/public/file.css" alias[3] match[1] serve[0]
@@ -255,7 +261,4 @@ Log message example:
 (/file.min.js) For Serve: "/var/public/file.js" alias[2] match[0] serve[1]
 ```
 
-The `(path)` is path which is requested by user. The `[number]` means index of Array.
-
-## Release History
- * 2013-12-29			v0.1.0			Initial release.
+The `(path)` is the path which is requested by the user. The `[number]` means an index of an Array.
