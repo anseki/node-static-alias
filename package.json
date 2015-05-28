@@ -1,6 +1,6 @@
 {
   "name": "node-static-alias",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "title": "node-static-alias",
   "description": "Serve static file which is not requested file. (e.g. `file.min.js` is requested, serve `file.js`)",
   "keywords": [
@@ -29,7 +29,7 @@
     "url": "git://github.com/anseki/node-static-alias.git"
   },
   "bugs": "https://github.com/anseki/node-static-alias/issues",
-  "licenses": "MIT",
+  "license": "MIT",
   "author": {
     "name": "anseki",
     "url": "https://github.com/anseki"
