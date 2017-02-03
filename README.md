@@ -1,5 +1,7 @@
 # node-static-alias
 
+[![npm](https://img.shields.io/npm/v/node-static-alias.svg)](https://www.npmjs.com/package/node-static-alias) [![GitHub issues](https://img.shields.io/github/issues/anseki/node-static-alias.svg)](https://github.com/anseki/node-static-alias/issues) [![David](https://img.shields.io/david/anseki/node-static-alias.svg)](package.json) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE-MIT)
+
 Serve static file which is not requested file. (e.g. `file.min.js` is requested, serve `file.js`)  
 node-static-alias wraps (inherits) the useful module [node-static](https://github.com/cloudhead/node-static/), and this adds the [`alias`](#alias) option to that.  
 This works like the [Alias](http://httpd.apache.org/docs/2.4/mod/mod_alias.html) mapping or the [mod_rewrite
