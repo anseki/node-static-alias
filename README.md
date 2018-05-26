@@ -71,8 +71,7 @@ The Alias-Rule Object can have following properties.
 Specify one of below or an Array which includes multiple things of those.  
 If one or more things match, the [`serve`](#serve) is parsed. If anything doesn't match, it goes to next an Alias-Rule. If all Alias-Rules don't match, it tries to serve the requested file.
 
-+ **string:**
-
++ **string:**  
 If the requested path is equal to this string, it's matched.  
 Or, this can be `parameter=value` format (e.g. `suffix=png`). See [Parameters](#parameters). If the `value` is equal to the specified parameter, it's matched.
 
@@ -90,8 +89,7 @@ Or, this can be `parameter=value` format (e.g. `suffix=png`). See [Parameters](#
   ]
 ```
 
-+ **RegExp:**
-
++ **RegExp:**  
 The RegExp which tests the requested path.
 
 ```js
@@ -102,15 +100,16 @@ The RegExp which tests the requested path.
   }
 ```
 
-+ **function:**
-
++ **function:**  
 The function which returns `true` or `false`.
-The Object which has parameters is passed to this function. See [Parameters](#parameters).
+The Object which has parameters is passed to this function. See [Parameters](#parameters). Also, current `request` instance and `response` instance are passed.  
+In the function, `this` refers to own instance.
 
 ```js
   // Kick direct access from outside web site.
   alias: {
-    match: function(params) {
+    match: function(params, request, response) {
+      console.log(request.url + ' was requested, in the path ' + this.root);
       return params.suffix === 'jpg' &&
         params.referer.indexOf('http://mysite.com/') !== 0;
     },
@@ -125,8 +124,7 @@ The Object which has parameters is passed to this function. See [Parameters](#pa
 Specify one of below or an Array which includes multiple things of those.  
 By default, the first file which exists is chosen to try to serve. See [force](#force). If anything doesn't exist, it goes to next an Alias-Rule. If all files of Alias-Rules don't exist, it tries to serve the requested file.
 
-+ **string:**
-
++ **string:**  
 The absolute path or relative path from the document-root of the file to serve.  
 This can include parameters like `<% parameter %>`. See [Parameters](#parameters).
 
@@ -140,16 +138,17 @@ This can include parameters like `<% parameter %>`. See [Parameters](#parameters
 
 *NOTE:* If the first character of this string is `/` (it might be parameter), this string is absolute path. This `/` doesn't point the document-root. It is the root of the local filesystem. If you want the relative path from the document-root, don't specify leading `/`, or add `.` to left of leading `/`.
 
-+ **function:**
-
++ **function:**  
 The function which returns the absolute path or relative path from the document-root of the file to serve.  
-The Object which has parameters is passed to this function. See [Parameters](#parameters).
+The Object which has parameters is passed to this function. See [Parameters](#parameters). Also, current `request` instance and `response` instance are passed.  
+In the function, `this` refers to own instance.
 
 ```js
   // Minified files are not made yet.
   alias: {
     match: /\.min\.(?:js|css)$/,
-    serve: function(params) {
+    serve: function(params, request, response) {
+      response.setHeader('X-serve-from', this.root);
       return params.absDir + '/' +
         params.basename.replace(/\.min$/, '.') + params.suffix;
     }
@@ -192,18 +191,21 @@ If `true` is specified, serving the outside files of the document-root is allowe
 
 ## Parameters
 
-The string `parameter=value` can be specified to the [`match`](#match). And the Object which has parameters is passed to function which specified to the [`match`](#match) and the [`serve`](#serve).  
+The string `parameter=value` can be specified to the [`match`](#match), and the string `<% parameter %>` can be specified to the [`serve`](#serve).  
+And also, the Object which has parameters is passed to function which specified to the [`match`](#match) and the [`serve`](#serve).  
 These parameters are below.
 
++ `reqUrl`  
+The URL which is requested by the user. e.g. `/path/to/file.ext?key1=value1&key2=value2`
 + `reqPath`  
 The path which is requested by the user. e.g. `/path/to/file.ext`  
 This might be a directory. e.g. `/`
 + `reqDir`  
-The path to a directory which is part of `reqPath`. e.g. `/path/to`  
+The path to a directory which is part of `reqPath`. e.g. `/path/to`
 + `absPath`  
-The absolute path to a requested file. e.g. `/var/www/public/path/to/file.ext`  
+The absolute path to a requested file. e.g. `/var/www/public/path/to/file.ext`
 + `absDir`  
-The absolute path to a directory which is part of `absPath`. e.g. `/var/www/public/path/to`  
+The absolute path to a directory which is part of `absPath`. e.g. `/var/www/public/path/to`
 + `fileName`  
 The file name of a requested file. e.g. `file.ext`  
 This might be a directory name e.g. `to`  
@@ -212,6 +214,11 @@ If the document-root is requested, this is empty string.
 The part of the file name except file-suffix. (`.` isn't included) e.g. `file`
 + `suffix`  
 The part of the file name which is extracted file-suffix. (`.` isn't included) e.g. `ext`
++ `reqQuery`  
+The URL query string which is part of `reqUrl`. e.g. `key1=value1&key2=value2`
++ Parsed query string  
+Pairs of a key beginning with a `query_` and a value. e.g. `query_key1`: `value1`, `query_key2`: `value2` from `reqQuery` above  
+An array is extracted and each key is given `[INDEX]`. e.g. `query_key[0]`: `value1`, `query_key[1]`: `value2` from `key=value1&key=value2`
 + Request Headers  
 The HTTP Request Headers from the client. These are lower-cased. e.g. `referer`, `user-agent`, etc.
 
