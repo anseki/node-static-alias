@@ -1,9 +1,10 @@
+'use strict';
 
 var staticAlias = require('../lib/node-static-alias');
 
-//var log4js = require('log4js');
-//var logger = log4js.getLogger('node-static-alias');
-//logger.setLevel(log4js.levels.INFO);
+// var log4js = require('log4js');
+// var logger = log4js.getLogger('node-static-alias');
+// logger.setLevel(log4js.levels.INFO);
 
 process.chdir(__dirname);
 
@@ -29,10 +30,10 @@ var fileServer = new staticAlias.Server('./public', {
     {
       match: /\/$/,
       serve: '<% absPath %>/default.html'
-    },
+    }
 
   ],
-  //logger: logger
+  // logger: logger
   logger: console
 });
 
