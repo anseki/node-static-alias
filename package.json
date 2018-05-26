@@ -18,7 +18,8 @@
   ],
   "main": "./lib/node-static-alias.js",
   "files": [
-    "lib/!(.eslintrc.json)"
+    "lib/!(.eslintrc.json)",
+    "example/!(.eslintrc.json)"
   ],
   "engines": {
     "node": ">= 0.8.0"
