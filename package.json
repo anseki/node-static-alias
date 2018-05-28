@@ -1,6 +1,6 @@
 {
   "name": "node-static-alias",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "title": "node-static-alias",
   "description": "Serve static file which is not requested file. (e.g. `file.min.js` is requested, serve `file.js`)",
   "keywords": [
