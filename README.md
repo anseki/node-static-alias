@@ -271,3 +271,50 @@ Log message example:
 ```
 
 The `(path)` is the path which is requested by the user. The `[number]` means an index of an Array.
+
+## Files list in the Directory
+
+This example generates a list of files and directories in requested directory when the user accessed the directory. This works like the [mod_autoindex](http://httpd.apache.org/docs/2.4/mod/mod_autoindex.html) of Apache.
+
+That looks like:  
+![ss](ss.png)
+
+The [statsFilelist](https://www.npmjs.com/package/stats-filelist) is required.
+
+```
+npm install stats-filelist
+```
+
+Load that and some core modules.
+
+```js
+var filelist = require('stats-filelist'),
+  path = require('path'),
+  fs = require('fs');
+```
+
+Specify for `alias`:
+
+```js
+alias: {
+  match: function(params) {
+    try {
+      return fs.statSync(params.absPath).isDirectory();
+    } catch (error) {
+      return false; // Ignore "Not found" etc.
+    }
+  },
+  serve: function(params) {
+    var indexPath = path.join(params.absPath, '.index.html');
+    fs.writeFileSync(indexPath,
+      '<html><body><ul>' +
+      filelist.getSync(params.absPath, /^(?!.*[/\\]\.index\.html$).+$/, false)
+        .map(function(stat) {
+          var relPath = stat.name + (stat.isDirectory() ? '/' : '');
+          return '<li><a href="' + relPath + '">' + relPath + '</a></li>';
+        }).join('') +
+      '</ul></body></html>');
+    return indexPath;
+  }
+}
+```
