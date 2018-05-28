@@ -19,7 +19,8 @@
   "main": "./lib/node-static-alias.js",
   "files": [
     "lib/!(.eslintrc.json)",
-    "example/!(.eslintrc.json)"
+    "example/!(.eslintrc.json)",
+    "ss.png"
   ],
   "engines": {
     "node": ">= 0.8.0"
